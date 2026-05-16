@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useProjectStore } from '../store/projectStore';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Plus, Folder, Trash2, Search, Download, Activity, Clock } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
