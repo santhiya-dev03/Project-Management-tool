@@ -1,0 +1,26 @@
+# Project Logs
+
+Date: 28-04-2026 -- 21:55
+
+Features Added:
+- Created implementation plan for the full-stack Project Management Tool.
+- Initialized React Vite project and installed basic dependencies (in progress).
+
+Bugs Found:
+- None yet.
+
+Bug Fixes:
+- N/A
+
+Other Changes:
+- Initialized project_logs.txt file.
+
+Date: 28-04-2026 -- 22:07
+Features Added:
+- Connected Supabase using MCP tools.
+- Applied PostgreSQL schema migrations with RLS policies.
+- Configured Vite React App and Tailwind CSS.
+- Created Auth Store and Authentication UI.
+- Implemented Dashboard for Project Management.
+- Developed Kanban Board with Drag-and-Drop (dnd-kit).
+- Implemented real-time updates for tasks using Supabase.
