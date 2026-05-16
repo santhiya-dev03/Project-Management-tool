@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { useProjectStore } from '../store/projectStore';
 import type { Project } from '../store/projectStore';
 import { useTaskStore } from '../store/taskStore';
 import KanbanBoard from '../components/KanbanBoard';
@@ -14,6 +15,7 @@ import clsx from 'clsx';
 export default function ProjectDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { projects, fetchProjects } = useProjectStore();
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -24,18 +26,32 @@ export default function ProjectDetails() {
   useEffect(() => {
     async function loadProject() {
       if (!id) return;
+      
       try {
-        const { data, error } = await supabase
-          .from('projects')
-          .select('*')
-          .eq('id', id)
-          .single();
-          
-        if (error) throw error;
-        setProject(data as Project);
+        // First check if project exists in store (handles demo projects)
+        let currentProject = projects.find(p => p.id === id);
+        
+        if (!currentProject) {
+          // If not in store, fetch from Supabase
+          const { data, error } = await supabase
+            .from('projects')
+            .select('*')
+            .eq('id', id)
+            .single();
+            
+          if (error) throw error;
+          currentProject = data as Project;
+        }
+
+        setProject(currentProject);
         await fetchTasks(id);
       } catch (error) {
         console.error('Error loading project:', error);
+        // If it's a demo ID but store is empty, try fetching projects first
+        if (id.startsWith('demo-') && projects.length === 0) {
+          await fetchProjects();
+          return; // The next effect run will pick it up
+        }
         navigate('/');
       } finally {
         setLoading(false);
@@ -43,7 +59,7 @@ export default function ProjectDetails() {
     }
     
     loadProject();
-  }, [id, fetchTasks, navigate]);
+  }, [id, fetchTasks, navigate, projects, fetchProjects]);
 
   if (loading) {
     return (

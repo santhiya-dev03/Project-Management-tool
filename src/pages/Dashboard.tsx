@@ -192,10 +192,20 @@ export default function Dashboard() {
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    if (confirm('Are you sure you want to delete this project?')) {
-                      deleteProject(project.id);
-                      toast.success('Project deleted successfully');
-                    }
+                    toast('Delete Project?', {
+                      description: `Are you sure you want to delete "${project.name}"?`,
+                      action: {
+                        label: 'Delete',
+                        onClick: () => {
+                          deleteProject(project.id);
+                          toast.success('Project deleted successfully');
+                        }
+                      },
+                      cancel: {
+                        label: 'Cancel',
+                        onClick: () => {}
+                      }
+                    });
                   }}
                   className="p-1.5 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive))]/10 rounded-md opacity-0 group-hover:opacity-100 transition-all z-10"
                   title="Delete project"
