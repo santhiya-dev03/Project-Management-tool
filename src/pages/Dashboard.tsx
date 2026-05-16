@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useProjectStore } from '../store/projectStore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plus, Folder, Trash2, Search, Download, Activity, Clock } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import clsx from 'clsx';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const { projects, loading, fetchProjects, createProject, deleteProject } = useProjectStore();
   const [isCreating, setIsCreating] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
@@ -162,10 +163,10 @@ export default function Dashboard() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project) => (
-// ... existing card content ...
             <div
               key={project.id}
-              className="group relative bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-xl p-6 hover:shadow-md hover:border-[hsl(var(--primary))]/30 transition-all"
+              onClick={() => navigate(`/project/${project.id}`)}
+              className="group relative bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-xl p-6 hover:shadow-lg hover:border-[hsl(var(--primary))]/30 transition-all cursor-pointer"
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-3">
@@ -189,40 +190,30 @@ export default function Dashboard() {
                 </div>
                 <button
                   onClick={(e) => {
+                    e.stopPropagation();
                     e.preventDefault();
-                    toast.warning('Are you sure you want to delete this project?', {
-                      action: {
-                        label: 'Delete',
-                        onClick: () => {
-                          deleteProject(project.id);
-                          toast.success('Project deleted successfully');
-                        }
-                      },
-                      cancel: {
-                        label: 'Cancel',
-                        onClick: () => {}
-                      }
-                    });
+                    if (confirm('Are you sure you want to delete this project?')) {
+                      deleteProject(project.id);
+                      toast.success('Project deleted successfully');
+                    }
                   }}
-                  className="p-1.5 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive))]/10 rounded-md opacity-0 group-hover:opacity-100 transition-all"
+                  className="p-1.5 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--destructive))] hover:bg-[hsl(var(--destructive))]/10 rounded-md opacity-0 group-hover:opacity-100 transition-all z-10"
                   title="Delete project"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
               
-              <Link to={`/project/${project.id}`} className="block focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))] focus:ring-offset-2 rounded-md">
-                <h3 className="text-lg font-semibold text-[hsl(var(--foreground))] mb-1 group-hover:text-[hsl(var(--primary))] transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2 mb-4 h-10">
-                  {project.description || 'No description provided.'}
-                </p>
-                <div className="flex items-center text-xs text-[hsl(var(--muted-foreground))]">
-                  <Clock className="w-3.5 h-3.5 mr-1.5" />
-                  Created {format(new Date(project.created_at), 'MMM d, yyyy')}
-                </div>
-              </Link>
+              <h3 className="text-lg font-semibold text-[hsl(var(--foreground))] mb-1 group-hover:text-[hsl(var(--primary))] transition-colors">
+                {project.name}
+              </h3>
+              <p className="text-sm text-[hsl(var(--muted-foreground))] line-clamp-2 mb-4 h-10">
+                {project.description || 'No description provided.'}
+              </p>
+              <div className="flex items-center text-xs text-[hsl(var(--muted-foreground))]">
+                <Clock className="w-3.5 h-3.5 mr-1.5" />
+                Created {format(new Date(project.created_at), 'MMM d, yyyy')}
+              </div>
             </div>
           ))}
         </div>
