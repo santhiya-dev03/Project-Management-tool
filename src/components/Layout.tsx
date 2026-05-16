@@ -116,6 +116,11 @@ export default function Layout() {
             <Menu className="w-6 h-6" />
           </button>
 
+          <div className="flex items-center gap-2 lg:hidden">
+            <img src={logo} alt="Logo" className="w-8 h-8 rounded-lg" />
+            <span className="font-bold text-lg bg-gradient-to-r from-[hsl(var(--primary))] to-purple-500 bg-clip-text text-transparent">CollabBoard</span>
+          </div>
+
           <div className="flex items-center gap-2 lg:gap-4">
             <ThemeToggle />
             <button className="p-2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--accent))] rounded-full transition-colors relative">
