@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# CollabBoard - Premium Project Management Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CollabBoard is a sophisticated, production-ready project management application designed for high-performance teams. It combines real-time collaboration, interactive data visualization, and a premium "Apple-like" aesthetic to provide a seamless workflow experience.
 
-Currently, two official plugins are available:
+![CollabBoard Preview](https://raw.githubusercontent.com/santhiya-dev03/Project-Management-tool/main/public/preview.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Key Features
 
-## React Compiler
+- **📊 Interactive Dashboards**: Real-time project health scores, task completion ratios, and activity monitoring.
+- **📋 Multifaceted Task Views**:
+  - **Kanban Board**: Drag-and-drop task management with instant state persistence.
+  - **Calendar View**: Visualise deadlines and schedules in a sleek monthly layout.
+  - **Gantt Timeline**: Track project progress and task dependencies over time.
+- **💬 Real-time Collaboration**: Project-specific team chat with instant messaging powered by Supabase Realtime.
+- **⏱️ Productivity Tools**:
+  - Built-in **Task Timers** to track time spent on specific items.
+  - **Subtasks** system for breaking down complex requirements.
+  - Interactive **Comments** threads for team discussion.
+- **📈 Advanced Analytics**: Dynamic charts (Bar, Pie, Area) for tracking team velocity and task distribution using Recharts.
+- **👥 Team Management**: Role-based access control, performance metrics, and member invitations.
+- **🛡️ Secure Profiles**: User authentication, profile avatar uploads to Supabase Storage, and "Danger Zone" security actions.
+- **🌓 Adaptive UI**: Fully responsive design with native-feeling Light and Dark modes.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite 8](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (using the new `@theme` engine)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Animations**: Framer Motion & Tailwind Transitions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### State & Logic
+- **State Management**: [Zustand](https://docs.pmnd.rs/zustand/)
+- **Form/Feedback**: [Sonner](https://sonner.stevenly.me/) (Toasts)
+- **Date Handling**: [date-fns](https://date-fns.org/)
+- **Drag & Drop**: [@dnd-kit](https://dnd-kit.com/)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend (BaaS)
+- **Service**: [Supabase](https://supabase.com/)
+- **Database**: PostgreSQL with Realtime enabled
+- **Storage**: Profile picture management via S3-compatible buckets
+- **Auth**: Secure JWT-based authentication
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Installation & Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/santhiya-dev03/Project-Management-tool.git
+   cd Project-Management-tool
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. **Environment Variables**:
+   Create a `.env` file in the root directory and add your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Built with ❤️ by [Santhiya](https://github.com/santhiya-dev03)
