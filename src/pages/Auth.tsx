@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore, DEMO_EMAIL } from '../store/authStore';
 import { toast } from 'sonner';
+import logo from '../assets/logo.png';
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -62,6 +63,9 @@ export default function Auth() {
       <div className="w-full max-w-md bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl shadow-xl overflow-hidden">
         <div className="p-8">
           <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-[hsl(var(--primary))] to-purple-400 p-3 mb-6 shadow-lg">
+              <img src={logo} alt="CollabBoard Logo" className="w-full h-full object-contain brightness-0 invert" />
+            </div>
             <h1 className="text-3xl font-bold text-[hsl(var(--foreground))] mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h1>

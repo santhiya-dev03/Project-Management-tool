@@ -4,6 +4,7 @@ import { useAuthStore } from '../store/authStore';
 import { LayoutDashboard, LogOut, Settings, Bell, Menu, X, Calendar, Users, BarChart3, CheckSquare } from 'lucide-react';
 import clsx from 'clsx';
 import ThemeToggle from './ThemeToggle';
+import logo from '../assets/logo.png';
 
 export default function Layout() {
   const { profile, signOut } = useAuthStore();
@@ -40,7 +41,8 @@ export default function Layout() {
         "fixed inset-y-0 left-0 z-50 w-64 border-r border-[hsl(var(--border))] bg-[hsl(var(--card))] flex flex-col transition-transform duration-300 lg:static lg:translate-x-0",
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="h-16 flex items-center justify-between px-6 border-b border-[hsl(var(--border))]">
+        <div className="h-16 flex items-center gap-3 px-6 border-b border-[hsl(var(--border))]">
+          <img src={logo} alt="Logo" className="w-8 h-8 rounded-lg" />
           <h1 className="text-xl font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-purple-500 bg-clip-text text-transparent">
             CollabBoard
           </h1>
